@@ -1,7 +1,16 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
+           
 */
+axios
+  .get("https://api.github.com/users/hb931206")
+  .then(function(response) {
+    console.log(response);
+  })
+  .catch(function(error) {
+    console.log(error);
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -53,3 +62,57 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+const githubComponent = () => {
+  const cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
+
+  const imgTag = document.createElement("img");
+  imgTag.src = "Come Back";
+  cardDiv.appendChild(imgTag);
+
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("card-info");
+  cardDiv.appendChild(cardInfo);
+
+  const nameTitle = document.createElement("h3");
+  nameTitle.classList.add("name");
+  nameTitle.textContent = "Come Back";
+  cardInfo.appendChild(nameTitle);
+
+  const userP = document.createElement("p");
+  userP.classList.add("username");
+  userP.textContent = "Come back";
+  cardInfo.appendChild(userP);
+
+  const locationP = document.createElement("p");
+  locationP.textContent = "Come Back";
+  cardInfo.appendChild(locationP);
+
+  const profileP = document.createElement("p");
+  profileP.textContent = "Come Back";
+  cardInfo.appendChild(profileP);
+
+  const profileA = document.createElement("a");
+  profileA.href = "Come Back";
+  profileA.textContent = "Come Back";
+  profileP.appendChild(profileA);
+
+  const followersP = document.createElement("p");
+  followersP.textContent = "Come Back";
+  cardInfo.appendChild(followersP);
+
+  const followingP = document.createElement("p");
+  followingP.textContent = "Come Back";
+  cardInfo.appendChild(followingP);
+
+  const bioP = document.createElement("p");
+  bioP.textContent = "Come Back";
+  cardInfo.appendChild(bioP);
+
+  return cardDiv;
+};
+
+const dummyDiv = githubComponent();
+const cardsDiv = document.querySelector(".cards");
+cardsDiv.appendChild(dummyDiv);
