@@ -3,10 +3,12 @@
            https://api.github.com/users/<your name>
            
 */
+const cardsDiv = document.querySelector(".cards");
 axios
   .get("https://api.github.com/users/hb931206")
   .then(function(response) {
-    // handle success
+    cardsDiv.appendChild(githubComponent(response.data));
+
     console.log(response);
   })
   .catch(function(error) {
@@ -114,7 +116,3 @@ const githubComponent = objspec => {
 
   return cardDiv;
 };
-
-const hbCard = githubComponent(response);
-const cardsDiv = document.querySelector(".cards");
-cardsDiv.appendChild(hbCard);
