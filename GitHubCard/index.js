@@ -6,9 +6,11 @@
 axios
   .get("https://api.github.com/users/hb931206")
   .then(function(response) {
+    // handle success
     console.log(response);
   })
   .catch(function(error) {
+    // handle error
     console.log(error);
   });
 
@@ -63,12 +65,12 @@ const followersArray = [];
   bigknell
 */
 
-const githubComponent = () => {
+const githubComponent = objspec => {
   const cardDiv = document.createElement("div");
   cardDiv.classList.add("card");
 
   const imgTag = document.createElement("img");
-  imgTag.src = "Come Back";
+  imgTag.src = objspec.avatar_url;
   cardDiv.appendChild(imgTag);
 
   const cardInfo = document.createElement("div");
@@ -77,42 +79,42 @@ const githubComponent = () => {
 
   const nameTitle = document.createElement("h3");
   nameTitle.classList.add("name");
-  nameTitle.textContent = "Come Back";
+  nameTitle.textContent = objspec.name;
   cardInfo.appendChild(nameTitle);
 
   const userP = document.createElement("p");
   userP.classList.add("username");
-  userP.textContent = "Come back";
+  userP.textContent = objspec.login;
   cardInfo.appendChild(userP);
 
   const locationP = document.createElement("p");
-  locationP.textContent = "Come Back";
+  locationP.textContent = `Location: ${objspec.location}`;
   cardInfo.appendChild(locationP);
 
   const profileP = document.createElement("p");
-  profileP.textContent = "Come Back";
+  profileP.textContent = "Profile:";
   cardInfo.appendChild(profileP);
 
   const profileA = document.createElement("a");
-  profileA.href = "Come Back";
-  profileA.textContent = "Come Back";
+  profileA.href = objspec.html_url;
+  profileA.textContent = objspec.html_url;
   profileP.appendChild(profileA);
 
   const followersP = document.createElement("p");
-  followersP.textContent = "Come Back";
+  followersP.textContent = `Followers: ${objspec.followers}`;
   cardInfo.appendChild(followersP);
 
   const followingP = document.createElement("p");
-  followingP.textContent = "Come Back";
+  followingP.textContent = `Following: ${objspec.following}`;
   cardInfo.appendChild(followingP);
 
   const bioP = document.createElement("p");
-  bioP.textContent = "Come Back";
+  bioP.textContent = `Bio: ${objspec.bio}`;
   cardInfo.appendChild(bioP);
 
   return cardDiv;
 };
 
-const dummyDiv = githubComponent();
+const hbCard = githubComponent(response);
 const cardsDiv = document.querySelector(".cards");
-cardsDiv.appendChild(dummyDiv);
+cardsDiv.appendChild(hbCard);
