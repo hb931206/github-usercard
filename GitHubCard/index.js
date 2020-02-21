@@ -1,7 +1,35 @@
 /* Step 1: using axios, send a GET request to the following URL 
            (replacing the palceholder with your Github name):
            https://api.github.com/users/<your name>
+           
 */
+const cardsDiv = document.querySelector(".cards");
+axios
+  .get("https://api.github.com/users/hb931206/followers")
+  .then(response => {
+    // cardsDiv.appendChild(githubComponent(response.data));
+
+    response.data.forEach(user => {
+      console.log(user.url);
+      axios.get(`${user.url}`).then(follower => {
+        cardsDiv.appendChild(githubComponent(follower.data));
+      });
+    });
+  })
+  .catch(error => {
+    // handle error
+    console.log(error);
+  });
+
+axios
+  .get("https://api.github.com/users/hb931206")
+  .then(response => {
+    cardsDiv.appendChild(githubComponent(response.data));
+  })
+  .catch(error => {
+    // handle error
+    console.log(error);
+  });
 
 /* Step 2: Inspect and study the data coming back, this is YOUR 
    github info! You will need to understand the structure of this 
@@ -24,7 +52,13 @@
           user, and adding that card to the DOM.
 */
 
-const followersArray = [];
+const followersArray = [
+  "tetondan",
+  "dustinmyers",
+  "justsml",
+  "luishrd",
+  "bigknell"
+];
 
 /* Step 3: Create a function that accepts a single object as its only argument,
           Using DOM methods and properties, create a component that will return the following DOM element:
@@ -53,3 +87,53 @@ const followersArray = [];
   luishrd
   bigknell
 */
+
+const githubComponent = objspec => {
+  const cardDiv = document.createElement("div");
+  cardDiv.classList.add("card");
+
+  const imgTag = document.createElement("img");
+  imgTag.src = objspec.avatar_url;
+  cardDiv.appendChild(imgTag);
+
+  const cardInfo = document.createElement("div");
+  cardInfo.classList.add("card-info");
+  cardDiv.appendChild(cardInfo);
+
+  const nameTitle = document.createElement("h3");
+  nameTitle.classList.add("name");
+  nameTitle.textContent = objspec.name;
+  cardInfo.appendChild(nameTitle);
+
+  const userP = document.createElement("p");
+  userP.classList.add("username");
+  userP.textContent = objspec.login;
+  cardInfo.appendChild(userP);
+
+  const locationP = document.createElement("p");
+  locationP.textContent = `Location: ${objspec.location}`;
+  cardInfo.appendChild(locationP);
+
+  const profileP = document.createElement("p");
+  profileP.textContent = "Profile:";
+  cardInfo.appendChild(profileP);
+
+  const profileA = document.createElement("a");
+  profileA.href = objspec.html_url;
+  profileA.textContent = objspec.html_url;
+  profileP.appendChild(profileA);
+
+  const followersP = document.createElement("p");
+  followersP.textContent = `Followers: ${objspec.followers}`;
+  cardInfo.appendChild(followersP);
+
+  const followingP = document.createElement("p");
+  followingP.textContent = `Following: ${objspec.following}`;
+  cardInfo.appendChild(followingP);
+
+  const bioP = document.createElement("p");
+  bioP.textContent = `Bio: ${objspec.bio}`;
+  cardInfo.appendChild(bioP);
+
+  return cardDiv;
+};
